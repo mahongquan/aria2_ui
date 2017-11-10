@@ -1,0 +1,5 @@
+.next
+node_modules
+npm-debug.log
+*.sqlite
+aria2-1.33.0-win-32bit-build1
