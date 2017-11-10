@@ -1,3 +1,4 @@
+var {Table,Modal,Navbar,Nav,NavItem,DropdownButton,MenuItem}=ReactBootstrap;
 var aria2 = new Aria2({
   host: 'localhost',
   port: 6800,
@@ -5,6 +6,50 @@ var aria2 = new Aria2({
   secret: '',
   path: '/jsonrpc'
 });
+/////////////
+class DlgFolder2 extends React.Component{
+  state={ 
+      showModal: false,
+      hiddenPacks:true,
+      error:"",
+      version:"",
+      enabledFeatures:[]
+    }
+  close=()=>{
+    this.setState({ showModal: false });
+  }
+
+  open=()=>{
+   this.setState({ showModal: true });
+   aria2.getVersion().then(
+            (res)=>{
+                console.log(res);
+                this.setState({version:""+res.version,enabledFeatures:res.enabledFeatures});
+            },
+            function (err) {
+              console.log('error', err)
+            }
+        );
+  }
+  render=()=>{
+    const features = this.state.enabledFeatures.map((contact, idx) => (
+         <li key={idx} >
+            {contact}
+         </li>));
+    return (
+        <Modal show={this.state.showModal} onHide={this.close}  dialogClassName="custom-modal">
+          <Modal.Header closeButton>
+            <Modal.Title>服务器信息</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          aria2 version:{this.state.version}
+          <h3>已启用功能</h3>
+          {features}
+          </Modal.Body>
+        </Modal>
+    );
+  }
+}
 class  Browser extends React.Component {
     state={
         version:"",
@@ -81,6 +126,9 @@ class  Browser extends React.Component {
             }
         })
     }
+    serverInfoClick=()=>{
+        this.refs.dlgserverinfo.open();
+    }
     showWaitingClick=()=>{
         var offset=0;
         var num=10;
@@ -136,6 +184,8 @@ class  Browser extends React.Component {
          </tr>));
         return(
             <div>aria2 version:{this.state.version}
+                <DlgFolder2 ref="dlgserverinfo"/>
+                <button onClick={this.serverInfoClick}>服务器信息</button>
                 <input value={this.state.newurl} onChange={this.urlChange}></input>
                 <button onClick={this.addClick}>add</button>
                 <button onClick={this.showAllClick}>showAll</button>
