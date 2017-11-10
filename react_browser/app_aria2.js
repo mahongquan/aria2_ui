@@ -1,4 +1,4 @@
-var {Table,Modal,Navbar,Nav,NavItem,DropdownButton,MenuItem}=ReactBootstrap;
+var {ButtonGroup,Table,Modal,Navbar,Nav,NavItem,DropdownButton,MenuItem}=ReactBootstrap;
 var aria2 = new Aria2({
   host: 'localhost',
   port: 6800,
@@ -183,7 +183,48 @@ class  Browser extends React.Component {
             </td>
          </tr>));
         return(
-            <div>aria2 version:{this.state.version}
+            <div>
+<Navbar className="navbar-inverse">
+    <Navbar.Header>
+      <Navbar.Brand>
+        <a>Aria2 WebUI</a>
+      </Navbar.Brand>
+    </Navbar.Header>
+    <Nav>
+    <ButtonGroup>
+      <DropdownButton title="添加" >
+        <MenuItem eventKey="1">Action</MenuItem>
+        <MenuItem eventKey="2">Another action</MenuItem>
+        <MenuItem eventKey="3" active>Active Item</MenuItem>
+        <MenuItem divider />
+        <MenuItem eventKey="4">Separated link</MenuItem>
+      </DropdownButton>
+      <DropdownButton title="管理" >
+        <MenuItem eventKey="1">Action</MenuItem>
+        <MenuItem eventKey="2">Another action</MenuItem>
+        <MenuItem eventKey="3" active>Active Item</MenuItem>
+        <MenuItem divider />
+        <MenuItem eventKey="4">Separated link</MenuItem>
+      </DropdownButton>
+      <DropdownButton title="设置" >
+        <MenuItem eventKey="1">Action</MenuItem>
+        <MenuItem eventKey="2">Another action</MenuItem>
+        <MenuItem eventKey="3" active>Active Item</MenuItem>
+        <MenuItem divider />
+        <MenuItem eventKey="4">Separated link</MenuItem>
+      </DropdownButton>
+      <DropdownButton title="语言" >
+        <MenuItem eventKey="1">Action</MenuItem>
+        <MenuItem eventKey="2">Another action</MenuItem>
+        <MenuItem eventKey="3" active>Active Item</MenuItem>
+        <MenuItem divider />
+        <MenuItem eventKey="4">Separated link</MenuItem>
+      </DropdownButton>
+     </ButtonGroup>
+    </Nav>
+   
+</Navbar>
+            aria2 version:{this.state.version}
                 <DlgFolder2 ref="dlgserverinfo"/>
                 <button onClick={this.serverInfoClick}>服务器信息</button>
                 <input value={this.state.newurl} onChange={this.urlChange}></input>
